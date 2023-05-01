@@ -4,6 +4,7 @@
   "description": "First node project",
   "main": "index.mjs",
   "scripts": {
+    "dataCollecting": "node dataCollecting.mjs",
     "start": "node index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
