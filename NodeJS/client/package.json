@@ -3,13 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "browser": {
+    "[module-name]": false   
+  },
   "scripts": {
     "start": "npm i live-server && live-server main.html",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "live-server": "^1.2.2"
+    "html-webpack-plugin": "^5.5.1",
+    "live-server": "^1.2.2",
+    "webpack": "^5.82.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.1"
   }
 }

@@ -8,6 +8,7 @@ userService
 userService
   .patchRequest({ age: 100, id: 9 })
   .then((data) => console.log(data, "DATA [PATCH]"));
+
 userService
   .deleteRequest({}, 10)
   .then((data) => console.log(data, "DATA [DELETE]"));
