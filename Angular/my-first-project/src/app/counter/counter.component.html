@@ -1,15 +1,34 @@
-<p class="p">Hello 
-    <span class="name">{{ name }}</span>
+<p class="p">
+  Hello
+  <span class="name">{{ name }}</span>
 </p>
 <p>Counter: {{ counter }}</p>
 <h2>Skills:</h2>
+
+<input [value]="value" (change)="onInputChange($event)" type="text" />
+<button (click)="addSkill(value)">Add skill</button>
+
 <ul>
-    <li *ngFor="let skill of skills">
-        <div>
-            {{ skill }} 
-            <button>Delete</button>
+  <li *ngFor="let skill of skills; index as i">
+    <div>
+      {{ skill }}
+      <div>
+        <div *ngIf="currentEditingSkillIndex === i">
+          <input
+            [value]="skills[i]"
+            (change)="onEditInputChange($event)"
+            type="text"
+            placeholder="Enter new skill name"
+            autofocus
+          />
+          <button (click)="onSaveEdit()">Save</button>
         </div>
-    </li>
+        <button *ngIf="currentEditingSkillIndex !== i" (click)="editSkill(i)">Edit</button>
+        <button>Delete</button>
+      </div>
+    </div>
+  </li>
 </ul>
+
 <button (click)="increment()">Increment</button>
 <button (click)="decrement()">Decrement</button>
