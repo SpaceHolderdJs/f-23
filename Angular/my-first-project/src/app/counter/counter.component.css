@@ -17,3 +17,22 @@ li > div {
     align-items: center;
     justify-content: space-between;
 }
+
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.todo > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo > div * {
+    margin: 5px;
+}

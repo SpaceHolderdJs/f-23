@@ -23,7 +23,9 @@
           />
           <button (click)="onSaveEdit()">Save</button>
         </div>
-        <button *ngIf="currentEditingSkillIndex !== i" (click)="editSkill(i)">Edit</button>
+        <button *ngIf="currentEditingSkillIndex !== i" (click)="editSkill(i)">
+          Edit
+        </button>
         <button>Delete</button>
       </div>
     </div>
@@ -32,3 +34,24 @@
 
 <button (click)="increment()">Increment</button>
 <button (click)="decrement()">Decrement</button>
+
+<hr />
+
+<section>
+  <input
+    type="text"
+    placeholder="search todo by title"
+    [value]="searchValue"
+    (input)="onSearchInputChange($event)"
+  />
+  <div
+    *ngFor="let todo of searchValue ? todosSearchResults : todos"
+    class="todo"
+  >
+    <div>
+      <span>{{ todo.id }}</span>
+      <p>{{ todo.title }}</p>
+    </div>
+    <span>{{ todo.completed }}</span>
+  </div>
+</section>
