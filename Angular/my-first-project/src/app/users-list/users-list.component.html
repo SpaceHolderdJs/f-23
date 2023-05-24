@@ -1,0 +1,9 @@
+<h1>Users</h1>
+
+<ul>
+    <li *ngFor="let user of usersList" >
+        <app-user-item [user]="user"></app-user-item>
+        <p>{{ user.name }}</p>
+        <span>{{ user.age }}</span>
+    </li>
+</ul>

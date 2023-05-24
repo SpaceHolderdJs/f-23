@@ -3,6 +3,13 @@
   <span class="name">{{ name }}</span>
 </p>
 <p>Counter: {{ counter }}</p>
+<h1>{{ inputData }}</h1>
+
+<h2>Data:</h2>
+<p *ngFor="let item of data">
+  {{ item }}
+</p>
+
 <h2>Skills:</h2>
 
 <input [value]="value" (change)="onInputChange($event)" type="text" />

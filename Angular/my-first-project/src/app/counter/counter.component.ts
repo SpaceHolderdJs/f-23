@@ -1,11 +1,16 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.css'],
 })
-export class CounterComponent implements OnInit, DoCheck {
+export class CounterComponent implements OnInit, DoCheck, OnDestroy {
+
+  @Input() inputData: string = "";
+  @Input() data: number[] = [];
+  @Input() givenFunction: (() => void) | null = null;
+
   name: string = 'Igor';
   counter: number = 0;
 
@@ -13,7 +18,7 @@ export class CounterComponent implements OnInit, DoCheck {
   searchValue: string = '';
 
   currentEditingSkillIndex: number | null = null;
-  editingValue: string = '';
+  editingValue: string = ''; 
 
   skills: string[] = ['JavaScript', 'HTML', 'CSS', 'Angular'];
 
@@ -29,7 +34,13 @@ export class CounterComponent implements OnInit, DoCheck {
   // initing of the component (first render)
   ngOnInit() {
     console.log('Hello from counter');
+    // if (this.givenFunction) {
+    //   this.givenFunction = this.givenFunction.bind(this.obj);
+    //   this.givenFunction();
+    // }
 
+    this.givenFunction && this.givenFunction();
+  
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then((response) => response.json())
       .then((json) => {
@@ -50,6 +61,10 @@ export class CounterComponent implements OnInit, DoCheck {
     console.log(this.todos, 'TODOS');
 
     // this.todos = this.todos.slice(0, 100);
+  }
+
+  ngOnDestroy() {
+    console.log("Component is prepearing for destroyment");
   }
 
   onSearchInputChange(event: any) {
