@@ -1,0 +1,5 @@
+<div>
+    <input [value]="name" (input)="onNameChange($event)" type="text" placeholder="Enter user name"/>
+    <input [value]="age || emptyAge" (input)="onAgeChange($event)" type="text" placeholder="Enter user age"/>
+    <button (click)="onAddUser()">Create User</button>
+</div>
