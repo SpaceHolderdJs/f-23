@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserInterface } from 'src/types';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-user-creation-form',
@@ -8,6 +9,8 @@ import { UserInterface } from 'src/types';
 })
 export class UserCreationFormComponent {
   @Input() usersList: UserInterface[] = [];
+
+  constructor (private usersService: UsersService) {}
 
   name: string = '';
   age: number = 0;
@@ -23,9 +26,12 @@ export class UserCreationFormComponent {
 
   onAddUser() {
     this.usersList.push({ name: this.name, age: this.age });
+
+    this.usersService.addUser({ name: this.name, age: +this.age });
+
     this.name = "";
     this.age = 0;
+    console.log(this.usersService.users, "USERS FROM SERVICE !!!!!!@@@!!!!!");
 
-    console.log(this.usersList, "LIST FROM user-creation");
   }
 }

@@ -8,6 +8,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { UserItemComponent } from './user-item/user-item.component';
 import { UserCreationFormComponent } from './user-creation-form/user-creation-form.component';
 import { UsersComponent } from './users/users.component';
+import { UsersService } from './users.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { UsersComponent } from './users/users.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
