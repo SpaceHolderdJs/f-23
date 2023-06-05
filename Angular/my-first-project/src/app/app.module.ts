@@ -9,6 +9,8 @@ import { UserItemComponent } from './user-item/user-item.component';
 import { UserCreationFormComponent } from './user-creation-form/user-creation-form.component';
 import { UsersComponent } from './users/users.component';
 import { UsersService } from './users.service';
+import { RemoteUsersListComponent } from './remote-users-list/remote-users-list.component';
+import { RemoteUserItemComponent } from './remote-user-item/remote-user-item.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { UsersService } from './users.service';
     UsersListComponent,
     UserItemComponent,
     UserCreationFormComponent,
-    UsersComponent
+    UsersComponent,
+    RemoteUsersListComponent,
+    RemoteUserItemComponent
   ],
   imports: [
     BrowserModule,

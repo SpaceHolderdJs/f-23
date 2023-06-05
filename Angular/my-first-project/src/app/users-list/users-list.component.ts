@@ -9,6 +9,6 @@ import { UserInterface } from 'src/types';
 export class UsersListComponent {
   @Input() usersList: UserInterface[] = [];
 
-  clearUserList = this.usersList.filter((user) => typeof user === "object" );
+  // clearUserList = this.usersList.filter((user) => typeof user === "object" );
 
 }

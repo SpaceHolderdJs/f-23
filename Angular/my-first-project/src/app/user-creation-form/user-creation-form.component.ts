@@ -27,11 +27,8 @@ export class UserCreationFormComponent {
   onAddUser() {
     this.usersList.push({ name: this.name, age: this.age });
 
-    this.usersService.addUser({ name: this.name, age: +this.age });
-
     this.name = "";
     this.age = 0;
-    console.log(this.usersService.users, "USERS FROM SERVICE !!!!!!@@@!!!!!");
 
   }
 }

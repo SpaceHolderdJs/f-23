@@ -11,8 +11,7 @@ export class UsersComponent implements OnInit {
   constructor (private usersService: UsersService) {}
 
   ngOnInit() {
-    this.usersService.addUser({name: "Igor", age: 11});
-    console.log(this.usersService.users, "!!!!USERS FROM SERVICE");
+    
   }
 
   usersList: UserInterface[] = [
