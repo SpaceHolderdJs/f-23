@@ -1,0 +1,10 @@
+<!-- <app-search-form></app-search-form> -->
+<header>
+  <button name="main" (click)="sectionSwitcher('main')">Main Section</button>
+  <button name="liked" (click)="sectionSwitcher('liked')">Liked Section</button>
+</header>
+
+<main>
+  <app-main-section *ngIf="currentSection === 'main'"></app-main-section>
+  <app-liked-section *ngIf="currentSection === 'liked'"></app-liked-section>
+</main>
