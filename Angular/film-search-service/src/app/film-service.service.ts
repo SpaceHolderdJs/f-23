@@ -28,4 +28,35 @@ export class FilmService {
 
     console.log(responseData, "data");
   }
+
+  getLikedFilms(): FilmDataInterface[] {
+    const likedFilms = JSON.parse(localStorage.getItem("likedFilms") || "[]");
+    return likedFilms;
+  }
+
+  addLikedFilm(film: FilmDataInterface) {
+    const prevLikedFilms = this.getLikedFilms();
+    localStorage.setItem("likedFilms", JSON.stringify([...prevLikedFilms, film]));
+    return this.getLikedFilms();
+  }
+
+  removeLikedFilm(film: FilmDataInterface) {
+    const prevLikedFilms = this.getLikedFilms();
+    const newLikedFilms = prevLikedFilms.filter(({ id }) => id !== film.id);
+    localStorage.setItem("likedFilms", JSON.stringify(newLikedFilms));
+    return this.getLikedFilms();
+  }
+
+  checkIfFilmIsLiked(film: FilmDataInterface): boolean {
+    const likedFilms = this.getLikedFilms();
+
+    return Boolean(likedFilms.find(({ id }) => film.id === id));
+  }
+
+  getRandomFilmToWatch() {
+    const likedFilms = this.getLikedFilms();
+
+    return likedFilms[Math.floor(Math.random() * likedFilms.length)];
+  }
+
 }

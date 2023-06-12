@@ -8,6 +8,7 @@ import { FilmCardComponent } from './film-card/film-card.component';
 import { MainSectionComponent } from './main-section/main-section.component';
 import { LikedSectionComponent } from './liked-section/liked-section.component';
 import { FilmService } from './film-service.service';
+import { RandomFilmPickerComponent } from './random-film-picker/random-film-picker.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FilmService } from './film-service.service';
     SearchFormComponent,
     FilmCardComponent,
     MainSectionComponent,
-    LikedSectionComponent
+    LikedSectionComponent,
+    RandomFilmPickerComponent
   ],
   imports: [
     BrowserModule,

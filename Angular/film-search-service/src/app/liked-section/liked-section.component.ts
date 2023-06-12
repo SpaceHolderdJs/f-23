@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilmService } from '../film-service.service';
 
 @Component({
   selector: 'app-liked-section',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./liked-section.component.css']
 })
 export class LikedSectionComponent {
+  constructor(public filmService: FilmService) { }
 
+  likedFilms = this.filmService.getLikedFilms();
 }

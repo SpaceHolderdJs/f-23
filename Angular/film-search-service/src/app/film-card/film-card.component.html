@@ -1,7 +1,25 @@
 <div *ngIf="film" class="card">
-    <img [src]="film.i ? film.i.imageUrl : 'https://w7.pngwing.com/pngs/855/182/png-transparent-film-illustration-film-director-computer-icons-movie-free-icon-miscellaneous-television-angle-thumbnail.png'" />
-    <h4>{{film.l}}</h4>
-    <p>Rank: {{film.rank}}</p>
-    <p>Actors: {{film.s}}</p>
-    <p>Type: {{film.qid}}</p>
+  <img
+    [src]="
+      film.i
+        ? film.i.imageUrl
+        : 'https://w7.pngwing.com/pngs/855/182/png-transparent-film-illustration-film-director-computer-icons-movie-free-icon-miscellaneous-television-angle-thumbnail.png'
+    "
+  />
+  <h4>{{ film.l }}</h4>
+  <p>Rank: {{ film.rank }}</p>
+  <p>Actors: {{ film.s }}</p>
+  <p>Type: {{ film.qid }}</p>
+  <button
+    *ngIf="!filmService.checkIfFilmIsLiked(film)"
+    (click)="filmService.addLikedFilm(film)"
+  >
+    Like
+  </button>
+  <button
+    *ngIf="filmService.checkIfFilmIsLiked(film)"
+    (click)="filmService.removeLikedFilm(film)"
+  >
+    Dislike
+  </button>
 </div>

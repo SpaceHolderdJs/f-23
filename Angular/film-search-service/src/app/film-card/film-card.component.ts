@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FilmDataInterface } from 'src/types';
+import { FilmService } from '../film-service.service';
 
 @Component({
   selector: 'app-film-card',
@@ -8,4 +9,6 @@ import { FilmDataInterface } from 'src/types';
 })
 export class FilmCardComponent {
   @Input() film: FilmDataInterface | null = null;
+  constructor(public filmService: FilmService) { }
+
 }

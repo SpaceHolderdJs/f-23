@@ -1,1 +1,12 @@
-<p>liked-section works!</p>
+<h2>Liked films</h2>
+
+<div>
+    <app-random-film-picker></app-random-film-picker>
+</div>
+
+<div class="content">
+    <app-film-card
+      *ngFor="let film of likedFilms"
+      [film]="film"
+    ></app-film-card>
+</div>
