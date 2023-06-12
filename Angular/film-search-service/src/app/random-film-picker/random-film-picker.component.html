@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <header>
+        <h3>Random film to watch</h3>
+        <button (click)="onRandomButonClick()">Get random film</button>
+    </header>
+
+    <div *ngIf="randomFilm" class="random-film">
+        <div class="card-wrapper">
+            <app-film-card [film]="randomFilm"></app-film-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: lightslategrey;
+    margin-bottom: 20px;
+}
+
+header button {
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

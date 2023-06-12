@@ -1,0 +1,8 @@
+<app-search-form></app-search-form>
+
+<div class="content">
+  <app-film-card
+    *ngFor="let film of filmService.films"
+    [film]="film"
+  ></app-film-card>
+</div>

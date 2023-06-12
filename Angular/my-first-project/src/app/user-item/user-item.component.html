@@ -1,1 +1,9 @@
-<p *ngIf="user">{{ user.name }}</p>
+<div *ngIf="user">
+    <section>
+        <p>{{ user.name }}</p>
+        <span>{{ user.age }}</span>
+    </section>
+    <section *ngIf="user">
+        <button (click)="onDeleteUser(user)">Delete</button>
+    </section>
+</div>

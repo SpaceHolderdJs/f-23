@@ -1,0 +1,20 @@
+<h1>Users list</h1>
+
+<div class="form" *ngIf="fields">
+  <input
+    type="text"
+    *ngFor="let field of fields"
+    [placeholder]="field"
+    [name]="field"
+    [value]="formData[field]"
+    (input)="onInputChange($event)"
+  />
+  <button (click)="onCreateButtonClick()">Create</button>
+</div>
+
+<div class="user-item" *ngFor="let user of usersService.users">
+  <h3>{{ user.name }}</h3>
+  <p>{{ user.email }}</p>
+  <p>{{ user.company }}</p>
+  <span>{{ user.address }}</span>
+</div>

@@ -53,11 +53,7 @@ expressApp.patch("/users", (req, res) => {
 });
 
 expressApp.delete("/users/:id", (req, res) => {
-  // const { id } = req.body;
   const { id } = req.params;
-
-  console.log(req.query.name, "QUERY");
-  console.log("USER id", id);
 
   const potentialUserIndex = users.findIndex((user) => user.id === +id);
   const potentialUser = users[potentialUserIndex];

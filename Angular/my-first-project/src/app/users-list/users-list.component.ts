@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserInterface } from 'src/types';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  styleUrls: ['./users-list.component.css'],
 })
-export class UsersListComponent implements OnInit {
-  usersList: UserInterface[] = [{name: "Igor", age: 23}, {name: "Oleg", age: 40}];
+export class UsersListComponent {
+  @Input() usersList: UserInterface[] = [];
 
-  ngOnInit() {
-    
-  }
+  // clearUserList = this.usersList.filter((user) => typeof user === "object" );
 
 }
