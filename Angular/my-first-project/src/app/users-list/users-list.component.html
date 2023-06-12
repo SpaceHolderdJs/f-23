@@ -2,8 +2,6 @@
 
 <ul>
     <li *ngFor="let user of usersList" >
-        <app-user-item [user]="user"></app-user-item>
-        <p>{{ user.name }}</p>
-        <span>{{ user.age }}</span>
+        <app-user-item [user]="user" [usersList]="usersList"></app-user-item>
     </li>
 </ul>
