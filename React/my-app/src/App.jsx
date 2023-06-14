@@ -1,9 +1,12 @@
 import "./App.css";
+import { Counter } from "./components/Counter";
+import { Shop } from "./components/shop/Shop";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello React</h1>
+      {/* <Counter />  */}
+      <Shop />
     </div>
   );
 }
