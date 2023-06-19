@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Item } from "./Item";
+import { Cart } from "./Cart";
 
 export const Shop = () => {
   const [items, setItems] = useState([]);
@@ -6,8 +8,10 @@ export const Shop = () => {
 
   //   const [searchResults, setSearchResults] = useState([]);
   const seachResults = inputValue
-    ? items.filter((item) =>
-        item.title.toLowerCase().includes(inputValue.toLowerCase())
+    ? items.filter(
+        (item) =>
+          item.title.toLowerCase().includes(inputValue.toLowerCase()) ||
+          item.price === +inputValue
       )
     : [];
 
@@ -24,27 +28,25 @@ export const Shop = () => {
 
   return (
     <div className="wrapper">
-      <header>
-        <h1>Shop</h1>
-        <div className="form">
-          <input
-            type="text"
-            placeholder="Search for items"
-            value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
-          />
-        </div>
-      </header>
-      <main>
-        {(inputValue ? seachResults : items).map((item) => (
-          <div>
-            <p>{item.title}</p>
-            <p>{item.price}</p>
-            <img src={item.image} alt={item.title} />
+      <Cart>
+        <header>
+          <h1>Shop</h1>
+          <div className="form">
+            <input
+              type="text"
+              placeholder="Search for items"
+              value={inputValue}
+              onChange={(event) => setInputValue(event.target.value)}
+            />
           </div>
-        ))}
-      </main>
-      <footer></footer>
+        </header>
+        <main>
+          {(inputValue ? seachResults : items).map((item) => (
+            <Item item={item} />
+          ))}
+        </main>
+        <footer></footer>
+      </Cart>
     </div>
   );
 };
