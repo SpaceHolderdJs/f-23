@@ -5,10 +5,25 @@ import { CartContext } from "../../contexts/cart.context";
 
 export const Item = (props) => {
   const { title, price, image, description } = props.item;
-  const [quantity, setQuantity] = useState(1);
+  const { isCartItem = false, cartQuantity = 1 } = props;
 
-  const { itemsToBuy, totalPrice, setItemsToBuy, setTotalPrice } =
-    useContext(CartContext);
+  const [quantity, setQuantity] = useState(cartQuantity);
+
+  const {
+    itemsToBuy,
+    setItemsToBuy,
+    recalculateTotalPrice,
+    changeItemQuantity,
+  } = useContext(CartContext);
+
+  const onInputChange = (event) => {
+    setQuantity(event.target.value);
+
+    if (isCartItem) {
+      changeItemQuantity(props.item, event.target.value);
+      recalculateTotalPrice(itemsToBuy);
+    } 
+  }
 
   const onAddToCartClick = (item) => {
     const newItems = [];
@@ -17,10 +32,11 @@ export const Item = (props) => {
       newItems.push(item);
     }
 
-    setItemsToBuy([...itemsToBuy, ...newItems]);
-  };
+    const updatedItems = [...itemsToBuy, ...newItems];
 
-  console.log(itemsToBuy, "!!!");
+    setItemsToBuy(updatedItems);
+    recalculateTotalPrice(updatedItems);
+  };
 
   return (
     <div className="item">
@@ -32,11 +48,15 @@ export const Item = (props) => {
         <input
           type="number"
           value={quantity}
-          onChange={(event) => setQuantity(event.target.value)}
+          onChange={onInputChange}
         />
-        <button onClick={() => onAddToCartClick(props.item)}>
-          Add to cart for: <span>{price * quantity}</span>$
-        </button>
+        {!isCartItem ? (
+          <button onClick={() => onAddToCartClick(props.item)}>
+            Add to cart for: <span>{price * quantity}</span>$
+          </button>
+        ) : (
+          <span>{price * quantity} $</span>
+        )}
       </div>
     </div>
   );
