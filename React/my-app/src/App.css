@@ -1,0 +1,96 @@
+.wrapper {
+    width: calc(100% - 40px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 20px 0px;
+    justify-content: center;
+}
+
+.item {
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    box-shadow: 0px 5px 10px 0.3px grey;
+    position: relative;
+}
+
+.item > .item-footer {
+    background: lightgray;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.item > .item-footer > input[type="number"] {
+    max-width: 50px;
+    text-align: center;
+}
+
+.item > img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+}
+
+.ReactModal__Overlay {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart {
+    /* width: 600px; */
+    min-width: 400px;
+    height: 80vh;
+    background: white;
+    box-shadow: 0px 5px 10px 0.3px grey;
+    overflow-y: auto;
+    position: relative;
+}
+
+.cart .cart-header, .cart .cart-footer {
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: lightgray;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0 10px;
+}
+
+.cart > .cart-footer {
+    height: 65px;
+    top: calc(100% - 65px);
+}
+
+.cart-button {
+    padding: 3px;
+    width: fit-content;
+}
+
+.btn {
+    cursor: pointer;
+}
