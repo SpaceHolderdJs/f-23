@@ -9,21 +9,16 @@ export const Item = (props) => {
 
   const [quantity, setQuantity] = useState(cartQuantity);
 
-  const {
-    itemsToBuy,
-    setItemsToBuy,
-    recalculateTotalPrice,
-    changeItemQuantity,
-  } = useContext(CartContext);
+  const { itemsToBuy, setCartData, changeItemQuantityAndPrice } =
+    useContext(CartContext);
 
   const onInputChange = (event) => {
     setQuantity(event.target.value);
 
     if (isCartItem) {
-      changeItemQuantity(props.item, event.target.value);
-      recalculateTotalPrice(itemsToBuy);
-    } 
-  }
+      changeItemQuantityAndPrice(props.item, event.target.value);
+    }
+  };
 
   const onAddToCartClick = (item) => {
     const newItems = [];
@@ -34,8 +29,11 @@ export const Item = (props) => {
 
     const updatedItems = [...itemsToBuy, ...newItems];
 
-    setItemsToBuy(updatedItems);
-    recalculateTotalPrice(updatedItems);
+    // imutable !!!
+    setCartData({
+      itemsToBuy: updatedItems,
+      totalPrice: updatedItems.reduce((acc, item) => acc += item.price, 0),
+    });
   };
 
   return (
@@ -45,17 +43,13 @@ export const Item = (props) => {
       <p>{description.split(" ").slice(0, 40).join(" ")} ...</p>
       <img src={image} alt={title} />
       <div className="item-footer">
-        <input
-          type="number"
-          value={quantity}
-          onChange={onInputChange}
-        />
+        <input type="number" value={quantity} onChange={onInputChange} />
         {!isCartItem ? (
           <button onClick={() => onAddToCartClick(props.item)}>
             Add to cart for: <span>{price * quantity}</span>$
           </button>
         ) : (
-          <span>{price * quantity} $</span>
+          <span>{(price * quantity).toFixed(2)} $</span>
         )}
       </div>
     </div>

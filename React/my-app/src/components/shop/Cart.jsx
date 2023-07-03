@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { CartContext } from "../../contexts/cart.context";
 import { Item } from "./Item";
+import { BsCart4 } from "react-icons/bs";
+import { SlClose } from "react-icons/sl";
 
 export const Cart = (props) => {
-  console.log(props, "PROPS OF CART");
   const { children } = props;
 
-  const [itemsToBuy, setItemsToBuy] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [cartData, setCartData] = useState({ itemsToBuy: [], totalPrice: 0 });
+  const { itemsToBuy, totalPrice } = cartData;
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const onToggleModal = () => setIsCartOpen(!isCartOpen);
 
-  const changeItemQuantity = (item, quantity) => {
+  const changeItemQuantityAndPrice = (item, quantity) => {
     const clearedItems = itemsToBuy.filter(
       (itemToRemove) => itemToRemove.id !== item.id
     );
@@ -23,16 +24,15 @@ export const Cart = (props) => {
       clearedItems.push(item);
     }
 
-    setItemsToBuy(clearedItems);
-  };
-
-  const recalculateTotalPrice = (items) => {
-    const totalCalculatedPrice = items.reduce(
+    const totalCalculatedPrice = clearedItems.reduce(
       (acc, item) => (acc += item.price),
       0
     );
-    setTotalPrice(totalCalculatedPrice);
-    return totalCalculatedPrice;
+
+    setCartData({
+      itemsToBuy: clearedItems,
+      totalPrice: totalCalculatedPrice,
+    });
   };
 
   const generateCartItems = (items) => {
@@ -62,21 +62,27 @@ export const Cart = (props) => {
     return Object.values(mappedItems);
   };
 
-  const resultOfGroppedItems = generateCartItems(itemsToBuy);
+  const performPurchase = async () => {
+    const data = await new Promise((res) => {
+      setTimeout(() => res(cartData), 1500)
+    });
 
-  console.log(resultOfGroppedItems, "resultOfGroppedItems");
+    console.log(data, "PURCHASE");
+    return data;
+  }
+
+  const resultOfGroppedItems = generateCartItems(itemsToBuy);
 
   return (
     <CartContext.Provider
       value={{
         itemsToBuy,
         totalPrice,
-        setItemsToBuy,
-        setTotalPrice,
-        recalculateTotalPrice,
-        changeItemQuantity,
+        setCartData,
+        changeItemQuantityAndPrice,
       }}
     >
+      <h1>{cartData.name}</h1>
       <Modal
         className="cart"
         appElement={document.getElementById("App")}
@@ -85,20 +91,30 @@ export const Cart = (props) => {
       >
         <div className="cart-header">
           <h1>Cart</h1>
-          <button onClick={onToggleModal}>Close</button>
+            <SlClose className="btn" size={20} onClick={onToggleModal} />
         </div>
+        {!resultOfGroppedItems.length && (
+          <h3 style={{ textAlign: "center" }}>Cart is empty</h3>
+        )}
         {
           // render here
           resultOfGroppedItems.map(({ item, quantity }) => (
-            <Item item={item} isCartItem={true} cartQuantity={quantity} />
+            <Item
+              key={item.id}
+              item={item}
+              isCartItem={true}
+              cartQuantity={quantity}
+            />
           ))
         }
         <div className="cart-footer">
-          <h4>Total: {totalPrice} $</h4>
-          <button className="purchase">Purchase</button>
+          <h4>Total: {totalPrice.toFixed(2)} $</h4>
+          <button className="purchase" onClick={performPurchase}>Purchase</button>
         </div>
       </Modal>
-      <button onClick={onToggleModal}>OPEN MODAL</button>
+      <button className="cart-button btn" onClick={onToggleModal}>
+        <BsCart4 size={20} />
+      </button>
 
       {children}
     </CartContext.Provider>

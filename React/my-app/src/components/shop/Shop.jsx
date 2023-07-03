@@ -42,7 +42,7 @@ export const Shop = () => {
         </header>
         <main>
           {(inputValue ? seachResults : items).map((item) => (
-            <Item item={item} />
+            <Item key={item.id} item={item} />
           ))}
         </main>
         <footer></footer>
