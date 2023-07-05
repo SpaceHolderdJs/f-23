@@ -1,33 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { Item } from "./Item";
 import { Cart } from "./Cart";
+import { useFetchData } from "../../hooks/useFetchData";
+
+const options = { method: "GET" };
 
 export const Shop = () => {
-  const [items, setItems] = useState([]);
+  const [fetchedData, isLoading] = useFetchData(
+    "https://fakestoreapi.com/products",
+    options,
+    []
+  );
+  const { data: items } = fetchedData;
+
+  console.log(items, "ITEMS");
+
   const [inputValue, setInputValue] = useState("");
 
-  //   const [searchResults, setSearchResults] = useState([]);
-  const seachResults = inputValue
-    ? items.filter(
-        (item) =>
-          item.title.toLowerCase().includes(inputValue.toLowerCase()) ||
-          item.price === +inputValue
-      )
-    : [];
-
-  useEffect(() => {
-    console.log("First render");
-
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setItems(json);
-      });
-  }, []);
+  const seachResults = useMemo(
+    () =>
+      inputValue
+        ? items.filter(
+            (item) =>
+              item.title.toLowerCase().includes(inputValue.toLowerCase()) ||
+              item.price === +inputValue
+          )
+        : [],
+    [inputValue, items]
+  );
 
   return (
     <div className="wrapper">
+      {/* loader starts here */}
+      {/* {isLoading && <LoaderComponent />} */}
       <Cart>
         <header>
           <h1>Shop</h1>
