@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export const Form = () => {
+  const divRef = useRef();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,10 +11,10 @@ export const Form = () => {
   });
 
   const fields = [
-    {name: "name" ,placeholder: "name", type: "text" },
-    {name: "email" ,placeholder: "email", type: "text" },
-    {name: "password" ,placeholder: "password", type: "password" },
-    {name: "city" ,placeholder: "city", type: "text" },
+    {name: "name", placeholder: "name", type: "text" },
+    {name: "email", placeholder: "email", type: "text" },
+    {name: "password", placeholder: "password", type: "password" },
+    {name: "city", placeholder: "city", type: "text" },
   ];
 
   const { email, name, password } = formData;
@@ -38,8 +40,13 @@ export const Form = () => {
 
   console.log(obj, "OBJ");
 
+  const onClick = () => {
+    console.log(divRef.current.id, "id");
+  }
+
+
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div id="divID" ref={divRef} style={{ display: "flex", flexDirection: "column" }}>
 
       {fields.map(({ name, type, placeholder }) => (
         <input
@@ -50,7 +57,7 @@ export const Form = () => {
         />
       ))}
 
-      <button>Submit</button>
+      <button onClick={onClick}>Submit</button>
     </div>
   );
 };

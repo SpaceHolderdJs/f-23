@@ -1,36 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Item } from "./Item";
 import { Cart } from "./Cart";
+import { useFetchData } from "../../hooks/useFetchData";
+import { CirclesWithBar } from "react-loader-spinner";
+
+const options = { method: "GET" };
 
 export const Shop = () => {
-  const [items, setItems] = useState([]);
+  const optionsRef = useRef({ method: "GET" });
+  const options = useMemo(() => ({method: 'GET'}), []);
+
+  const [fetchedData, isLoading] = useFetchData(
+    "https://fakestoreapi.com/products",
+    options,
+    []
+  );
+  const { data: items } = fetchedData;
+
+  console.log(items, "ITEMS");
+
   const [inputValue, setInputValue] = useState("");
 
-  //   const [searchResults, setSearchResults] = useState([]);
-  const seachResults = inputValue
-    ? items.filter(
-        (item) =>
-          item.title.toLowerCase().includes(inputValue.toLowerCase()) ||
-          item.price === +inputValue
-      )
-    : [];
+  const seachResults = useMemo(
+    () =>
+      inputValue
+        ? items.filter(
+            (item) =>
+              item.title.toLowerCase().includes(inputValue.toLowerCase()) ||
+              item.price === +inputValue
+          )
+        : [],
+    [inputValue, items]
+  );
 
-  useEffect(() => {
-    console.log("First render");
-
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setItems(json);
-      });
-  }, []);
+  const onClick = () => {
+    optionsRef.current.method = "POST";
+    console.log(optionsRef, "REF")
+  }
 
   return (
     <div className="wrapper">
       <Cart>
         <header>
-          <h1>Shop</h1>
+          <h1 onClick={onClick}>Shop</h1>
           <div className="form">
             <input
               type="text"
@@ -41,6 +53,17 @@ export const Shop = () => {
           </div>
         </header>
         <main>
+          {isLoading && (
+            <div className="loader-wrapper">
+              <CirclesWithBar
+                height="100"
+                width="100"
+                color="grey"
+                visible={true}
+                ariaLabel="circles-with-bar-loading"
+              />
+            </div>
+          )}
           {(inputValue ? seachResults : items).map((item) => (
             <Item key={item.id} item={item} />
           ))}

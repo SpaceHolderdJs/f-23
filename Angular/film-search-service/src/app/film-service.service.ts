@@ -25,8 +25,6 @@ export class FilmService {
     if (responseData.d) {
       this.films = responseData.d;
     }
-
-    console.log(responseData, "data");
   }
 
   getLikedFilms(): FilmDataInterface[] {
