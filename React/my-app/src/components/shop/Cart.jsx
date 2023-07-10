@@ -4,11 +4,16 @@ import { CartContext } from "../../contexts/cart.context";
 import { Item } from "./Item";
 import { BsCart4 } from "react-icons/bs";
 import { SlClose } from "react-icons/sl";
+import { useLocalStorageData } from "../../hooks/useLocalStorageData";
 
 export const Cart = (props) => {
   const { children } = props;
 
-  const [cartData, setCartData] = useState({ itemsToBuy: [], totalPrice: 0 });
+  const [cartData, setCartData] = useLocalStorageData("cartData", {
+    itemsToBuy: [],
+    totalPrice: 0,
+  });
+  
   const { itemsToBuy, totalPrice } = cartData;
 
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -64,12 +69,12 @@ export const Cart = (props) => {
 
   const performPurchase = async () => {
     const data = await new Promise((res) => {
-      setTimeout(() => res(cartData), 1500)
+      setTimeout(() => res(cartData), 1500);
     });
 
     console.log(data, "PURCHASE");
     return data;
-  }
+  };
 
   const resultOfGroppedItems = generateCartItems(itemsToBuy);
 
@@ -91,7 +96,7 @@ export const Cart = (props) => {
       >
         <div className="cart-header">
           <h1>Cart</h1>
-            <SlClose className="btn" size={20} onClick={onToggleModal} />
+          <SlClose className="btn" size={20} onClick={onToggleModal} />
         </div>
         {!resultOfGroppedItems.length && (
           <h3 style={{ textAlign: "center" }}>Cart is empty</h3>
@@ -109,7 +114,9 @@ export const Cart = (props) => {
         }
         <div className="cart-footer">
           <h4>Total: {totalPrice.toFixed(2)} $</h4>
-          <button className="purchase" onClick={performPurchase}>Purchase</button>
+          <button className="purchase" onClick={performPurchase}>
+            Purchase
+          </button>
         </div>
       </Modal>
       <button className="cart-button btn" onClick={onToggleModal}>

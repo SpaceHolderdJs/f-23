@@ -34,6 +34,7 @@ export const Item = (props) => {
       itemsToBuy: updatedItems,
       totalPrice: updatedItems.reduce((acc, item) => acc += item.price, 0),
     });
+
   };
 
   return (
