@@ -18,7 +18,9 @@ export const useFetchData = (
       } catch (error) {
         setData({ data: null, error });
       } finally {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000);
       }
     })();
   }, [url, options]);
